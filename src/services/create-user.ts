@@ -3,13 +3,13 @@ import { UsersRepository } from '@/repositories/users-repository'
 import { hash } from 'bcryptjs'
 import { UserAlreadyExistError } from './errors/user-already-exist-error'
 
-interface RegisterServiceRequest {
+interface CreateUserRequest {
   name: string
   email: string
   password: string
 }
 
-interface RegisterServiceResponse {
+interface CreateUserResponse {
   user: User
 }
 
@@ -20,7 +20,7 @@ export class CreateUserService {
     name,
     email,
     password,
-  }: RegisterServiceRequest): Promise<RegisterServiceResponse> {
+  }: CreateUserRequest): Promise<CreateUserResponse> {
     const passwordHash = await hash(password, 6)
 
     const isExistUser = await this.usersRepository.findByEmail(email)
