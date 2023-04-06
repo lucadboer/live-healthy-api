@@ -26,12 +26,13 @@ describe('Create snack Service', async () => {
     const { email } = await usersRepository.create(testUser)
 
     const { snack } = await sut.execute({
+      id: '123456',
       title: 'Rice and Beens',
       description: '',
       date: new Date(),
       hours: '12:00',
       isDiet: true,
-      email,
+      userEmail: email,
     })
 
     expect(snack.isDiet).toEqual(true)
@@ -40,12 +41,13 @@ describe('Create snack Service', async () => {
   it('should not be able to create a new stack without user', async () => {
     expect(async () => {
       await sut.execute({
+        id: '123456',
         title: 'Rice and Beens',
         description: '',
         date: new Date(),
         hours: '12:00',
         isDiet: true,
-        email: 'does not exist',
+        userEmail: 'does not exist',
       })
     }).rejects.toBeInstanceOf(ResourcesNotFoundError)
   })

@@ -4,7 +4,7 @@ import { ResourcesNotFoundError } from './errors/resources-not-found-error'
 import { SnackRepository } from '@/repositories/snacks-repository'
 
 interface CreateSnackRequest extends Snack {
-  email: string
+  userEmail: string
 }
 
 interface CreateSnackResponse {
@@ -18,20 +18,22 @@ export class CreateSnackService {
   ) {}
 
   async execute({
+    id,
     title,
     description,
     date,
     hours,
     isDiet,
-    email,
+    userEmail,
   }: CreateSnackRequest): Promise<CreateSnackResponse> {
-    const user = await this.usersRepository.findByEmail(email)
+    const user = await this.usersRepository.findByEmail(userEmail)
 
     if (!user) {
       throw new ResourcesNotFoundError()
     }
 
     const snack = await this.snacksRepository.create({
+      id,
       title,
       description,
       date,
