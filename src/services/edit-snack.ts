@@ -11,7 +11,7 @@ export class EditSnackService {
   constructor(private snacksRepository: SnackRepository) {}
 
   async execute(data: EditSnackRequest): Promise<EditSnackResponse> {
-    const snack = await this.snacksRepository.editSnack(data)
+    const snack = await this.snacksRepository.edit(data)
 
     return {
       snack,

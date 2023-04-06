@@ -1,14 +1,14 @@
 import { InMemmorySnacksRepository } from '@/repositories/in-memmory/in-memmory-snack-repository'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { EditSnackService } from './edit-snack'
+import { DeleteSnackService } from './delete-snack'
 
 let snacksRepository: InMemmorySnacksRepository
-let sut: EditSnackService
+let sut: DeleteSnackService
 
-describe('Edit snack Service', async () => {
+describe('delete snack Service', async () => {
   beforeEach(() => {
     snacksRepository = new InMemmorySnacksRepository()
-    sut = new EditSnackService(snacksRepository)
+    sut = new DeleteSnackService(snacksRepository)
   })
 
   it('should be able to edit a snack', async () => {
@@ -21,15 +21,8 @@ describe('Edit snack Service', async () => {
       isDiet: true,
     })
 
-    const { snack } = await sut.execute({
-      id: '123456',
-      title: 'Rice and ROOOO',
-      description: '',
-      date: new Date(),
-      hours: '12:00',
-      isDiet: true,
-    })
+    await sut.execute('123456')
 
-    expect(snack.title).toEqual('Rice and ROOOO')
+    expect(snacksRepository.items).toEqual([])
   })
 })
