@@ -27,9 +27,13 @@ describe('Create snack Service', async () => {
       })
     }
 
-    const { metrics } = await sut.execute({ userId })
+    const { metrics } = await sut.execute({ userId })    
 
-    console.log(metrics);
+    expect(metrics).toEqual({
+      total: 13,
+      positive: 7,
+      negative: 6,
+    })
     
   })
 })
