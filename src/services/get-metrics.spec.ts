@@ -5,14 +5,14 @@ import { GetMetricsService } from './get-metrics'
 let snacksRepository: InMemmorySnacksRepository
 let sut: GetMetricsService
 
-describe('Create snack Service', async () => {
+describe('Get metrics Service', async () => {
   beforeEach(() => {
     snacksRepository = new InMemmorySnacksRepository()
 
     sut = new GetMetricsService(snacksRepository)
   })
 
-  it('should be able to get one snack', async () => {
+  it('should be able to get user metrics', async () => {
     const userId = 'user-01'
 
     for (let i = 0; i <= 12; i++) {

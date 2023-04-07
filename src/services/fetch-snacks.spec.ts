@@ -5,14 +5,14 @@ import { FetchSnacksService } from './fetch-snacks'
 let snacksRepository: InMemmorySnacksRepository
 let sut: FetchSnacksService
 
-describe('Create snack Service', async () => {
+describe('Fetch snacks Service', async () => {
   beforeEach(() => {
     snacksRepository = new InMemmorySnacksRepository()
 
     sut = new FetchSnacksService(snacksRepository)
   })
 
-  it('should be able to create a new snack', async () => {
+  it('should be able to fetch snacks', async () => {
     const userId = 'user-01'
 
     for (let i = 0; i <= 3; i++) {

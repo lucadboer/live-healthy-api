@@ -11,7 +11,7 @@ describe('delete snack Service', async () => {
     sut = new DeleteSnackService(snacksRepository)
   })
 
-  it('should be able to edit a snack', async () => {
+  it('should be able to delete a snack', async () => {
     await snacksRepository.create({
       id: 'snack-01',
       title: 'Rice and Beans',

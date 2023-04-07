@@ -5,7 +5,7 @@ import { GetSnackService } from './get-snack'
 let snacksRepository: InMemmorySnacksRepository
 let sut: GetSnackService
 
-describe('Create snack Service', async () => {
+describe('Get snack Service', async () => {
   beforeEach(() => {
     snacksRepository = new InMemmorySnacksRepository()
 
