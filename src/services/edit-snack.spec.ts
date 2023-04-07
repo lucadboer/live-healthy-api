@@ -13,23 +13,25 @@ describe('Edit snack Service', async () => {
 
   it('should be able to edit a snack', async () => {
     await snacksRepository.create({
-      id: '123456',
-      title: 'Rice and Beens',
+      id: 'snack-01',
+      title: 'Rice and Beans',
       description: '',
       date: new Date(),
       hours: '12:00',
       isDiet: true,
+      userId: 'user-01',
     })
 
     const { snack } = await sut.execute({
-      id: '123456',
-      title: 'Rice and ROOOO',
+      id: 'snack-01',
+      title: 'Rice and mistake',
       description: '',
       date: new Date(),
       hours: '12:00',
       isDiet: true,
+      userId: 'user-01',
     })
 
-    expect(snack.title).toEqual('Rice and ROOOO')
+    expect(snack.title).toEqual('Rice and mistake')
   })
 })

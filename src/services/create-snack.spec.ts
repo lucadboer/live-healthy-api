@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { CreateSnackService } from './create-snack'
 import { InMemmoryUsersRepository } from '@/repositories/in-memmory/in-memmory-user-repository'
 import { ResourcesNotFoundError } from './errors/resources-not-found-error'
+import { randomUUID } from 'crypto'
 
 let snacksRepository: InMemmorySnacksRepository
 let usersRepository: InMemmoryUsersRepository
@@ -17,22 +18,23 @@ describe('Create snack Service', async () => {
   })
 
   const testUser = {
+    id: randomUUID(),
     name: 'John Doe',
     email: 'john@doe.com',
     password_hash: '123456',
   }
 
   it('should be able to create a new snack', async () => {
-    const { email } = await usersRepository.create(testUser)
+    const { id } = await usersRepository.create(testUser)
 
     const { snack } = await sut.execute({
-      id: '123456',
-      title: 'Rice and Beens',
+      id: 'snack-01',
+      title: 'Rice and Beans',
       description: '',
       date: new Date(),
       hours: '12:00',
       isDiet: true,
-      userEmail: email,
+      userId: id,
     })
 
     expect(snack.isDiet).toEqual(true)
@@ -47,7 +49,7 @@ describe('Create snack Service', async () => {
         date: new Date(),
         hours: '12:00',
         isDiet: true,
-        userEmail: 'does not exist',
+        userId: 'does not exist',
       })
     }).rejects.toBeInstanceOf(ResourcesNotFoundError)
   })

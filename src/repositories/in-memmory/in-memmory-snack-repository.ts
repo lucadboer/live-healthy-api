@@ -5,12 +5,14 @@ import { ResourcesNotFoundError } from '@/services/errors/resources-not-found-er
 export class InMemmorySnacksRepository implements SnackRepository {
   public items: Snack[] = []
 
+  async findManyByUserId(userEmail: string) {
+    const snacks = this.items.filter((item) => item.userId === userEmail)
+
+    return snacks
+  }
+
   async delete(snackId: string) {
-    console.log(this.items)
-
     this.items = this.items.filter((snack) => snack.id !== snackId)
-
-    console.log(this.items)
   }
 
   async edit(data: Snack) {
@@ -49,6 +51,7 @@ export class InMemmorySnacksRepository implements SnackRepository {
       date: data.date,
       hours: data.hours,
       isDiet: data.isDiet,
+      userId: data.userId,
     }
 
     this.items.push(snack)

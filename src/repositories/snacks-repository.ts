@@ -5,4 +5,5 @@ export interface SnackRepository {
   delete(snackId: string): Promise<void>
   edit(data: Snack): Promise<Snack>
   findById(snackId: string): Promise<Snack | null>
+  findManyByUserId(userId: string): Promise<Snack[]>
 }

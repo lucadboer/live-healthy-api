@@ -2,6 +2,7 @@ import { User } from '@/DTO/User'
 import { UsersRepository } from '@/repositories/users-repository'
 import { hash } from 'bcryptjs'
 import { UserAlreadyExistError } from './errors/user-already-exist-error'
+import { randomUUID } from 'crypto'
 
 interface CreateUserRequest {
   name: string
@@ -30,6 +31,7 @@ export class CreateUserService {
     }
 
     const user = await this.usersRepository.create({
+      id: randomUUID(),
       email,
       name,
       password_hash: passwordHash,
