@@ -1,9 +1,22 @@
 import { Snack } from '@/DTO/Snack'
 import { SnackRepository } from '../snacks-repository'
 import { ResourcesNotFoundError } from '@/services/errors/resources-not-found-error'
+import { Metrics } from '@/DTO/metrics'
 
 export class InMemmorySnacksRepository implements SnackRepository {
   public items: Snack[] = []
+
+  async getUserMetrics(userId: string) {
+    const snacks = this.items.filter((item) => item.userId === userId)
+
+    const metrics: Metrics = {
+      total: snacks.length,
+      positive: snacks.filter((item) => item.isDiet).length,
+      negative: snacks.filter((item) => !item.isDiet).length,
+    }
+
+    return metrics
+  }
 
   async findManyByUserId(userEmail: string) {
     const snacks = this.items.filter((item) => item.userId === userEmail)

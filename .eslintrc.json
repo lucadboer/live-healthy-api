@@ -4,6 +4,6 @@
   ],
   "rules": {
     "no-useless-constructor": "off",
-    "camelcase": "off"
+    "camelcase": "off",
   }
 }
