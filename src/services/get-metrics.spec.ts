@@ -21,9 +21,9 @@ describe('Get metrics Service', async () => {
         title: 'Rice and Beans',
         description: '',
         date: new Date(),
-        hours: '12:00',
-        isDiet: i % 2 === 0 ? true : false,
-        userId,
+        hour: '12:00',
+        is_diet: i % 2 === 0 ? true : false,
+        user_id: userId,
       })
     }
 

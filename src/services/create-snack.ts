@@ -3,9 +3,7 @@ import { Snack } from '@/DTO/Snack'
 import { ResourcesNotFoundError } from './errors/resources-not-found-error'
 import { SnackRepository } from '@/repositories/snacks-repository'
 
-interface CreateSnackRequest extends Snack {
-  userId: string
-}
+interface CreateSnackRequest extends Snack {}
 
 interface CreateSnackResponse {
   snack: Snack
@@ -22,11 +20,11 @@ export class CreateSnackService {
     title,
     description,
     date,
-    hours,
-    isDiet,
-    userId,
+    hour,
+    is_diet,
+    user_id,
   }: CreateSnackRequest): Promise<CreateSnackResponse> {
-    const user = await this.usersRepository.findById(userId)
+    const user = await this.usersRepository.findById(user_id)
 
     if (!user) {
       throw new ResourcesNotFoundError()
@@ -37,9 +35,9 @@ export class CreateSnackService {
       title,
       description,
       date,
-      hours,
-      isDiet,
-      userId,
+      hour,
+      is_diet,
+      user_id,
     })
 
     return {

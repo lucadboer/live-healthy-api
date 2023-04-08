@@ -62,9 +62,9 @@ export class InMemmorySnacksRepository implements SnackRepository {
       title: data.title,
       description: data.description,
       date: data.date,
-      hours: data.hour,
-      isDiet: data.is_diet,
-      userId: data.user_id,
+      hour: data.hour,
+      is_diet: data.is_diet,
+      user_id: data.user_id,
     }
 
     this.items.push(snack)

@@ -32,12 +32,12 @@ describe('Create snack Service', async () => {
       title: 'Rice and Beans',
       description: '',
       date: new Date(),
-      hours: '12:00',
-      isDiet: true,
-      userId: id,
+      hour: '12:00',
+      is_diet: true,
+      user_id: id,
     })
 
-    expect(snack.isDiet).toEqual(true)
+    expect(snack.is_diet).toEqual(true)
   })
 
   it('should not be able to create a new stack without user', async () => {
@@ -47,9 +47,9 @@ describe('Create snack Service', async () => {
         title: 'Rice and Beens',
         description: '',
         date: new Date(),
-        hours: '12:00',
-        isDiet: true,
-        userId: 'does not exist',
+        hour: '12:00',
+        is_diet: true,
+        user_id: 'does not exist',
       })
     }).rejects.toBeInstanceOf(ResourcesNotFoundError)
   })

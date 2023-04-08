@@ -20,9 +20,9 @@ describe('Get snack Service', async () => {
       title: 'Rice and Mistake',
       description: '',
       date: new Date(),
-      hours: '12:00',
-      isDiet: true,
-      userId: 'user-01',
+      hour: '12:00',
+      is_diet: true,
+      user_id: 'user-01',
     })
 
     const { snack } = await sut.execute({ snackId })

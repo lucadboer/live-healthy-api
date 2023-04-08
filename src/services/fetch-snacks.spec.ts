@@ -21,9 +21,9 @@ describe('Fetch snacks Service', async () => {
         title: 'Rice and Beans',
         description: '',
         date: new Date(),
-        hours: '12:00',
-        isDiet: true,
-        userId,
+        hour: '12:00',
+        is_diet: true,
+        user_id: userId,
       })
     }
 

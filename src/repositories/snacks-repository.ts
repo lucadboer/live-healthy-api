@@ -1,5 +1,5 @@
+import { Metrics } from '@/DTO/Metrics'
 import { Snack } from '@/DTO/Snack'
-import { Metrics } from '@/DTO/metrics'
 
 export interface SnackRepository {
   create(snack: Snack): Promise<Snack>
