@@ -3,13 +3,15 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
 export async function create(req: FastifyRequest, reply: FastifyReply) {
-  const createUserBodySchema = z.object({
-    name: z.string(),
-    email: z.string().email(),
-    password: z.string().min(6).max(18),
+  const createBodySchema = z.object({
+    title: z.string(),
+    description: z.string().nullable(),
+    date: z.date(),
+    hour: z.string(),
+    isDiet: z.boolean(),
   })
 
-  const { email, name, password } = createUserBodySchema.parse(req.body)
+  const { title, description, date, hour, isDiet } = createBodySchema.parse(req.body)
 
   const service = makeCreateUserService()
   await service.execute({

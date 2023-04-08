@@ -1,4 +1,4 @@
-import { Metrics } from '@/DTO/metrics'
+import { Metrics } from '@/DTO/Metrics'
 import { SnackRepository } from '@/repositories/snacks-repository'
 
 interface GetUserMetricsRequest {

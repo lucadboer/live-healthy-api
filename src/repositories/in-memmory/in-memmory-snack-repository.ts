@@ -1,25 +1,25 @@
 import { Snack } from '@/DTO/Snack'
 import { SnackRepository } from '../snacks-repository'
 import { ResourcesNotFoundError } from '@/services/errors/resources-not-found-error'
-import { Metrics } from '@/DTO/metrics'
+import { Metrics } from '@/DTO/Metrics'
 
 export class InMemmorySnacksRepository implements SnackRepository {
   public items: Snack[] = []
 
   async getUserMetrics(userId: string) {
-    const snacks = this.items.filter((item) => item.userId === userId)
+    const snacks = this.items.filter((item) => item.user_id === userId)
 
     const metrics: Metrics = {
       total: snacks.length,
-      positive: snacks.filter((item) => item.isDiet).length,
-      negative: snacks.filter((item) => !item.isDiet).length,
+      positive: snacks.filter((item) => item.is_diet).length,
+      negative: snacks.filter((item) => !item.is_diet).length,
     }
 
     return metrics
   }
 
   async findManyByUserId(userEmail: string) {
-    const snacks = this.items.filter((item) => item.userId === userEmail)
+    const snacks = this.items.filter((item) => item.user_id === userEmail)
 
     return snacks
   }
@@ -29,7 +29,7 @@ export class InMemmorySnacksRepository implements SnackRepository {
   }
 
   async edit(data: Snack) {
-    const { date, description, hours, isDiet, title, id } = data
+    const { date, description, hour, is_diet, title, id } = data
 
     const snack = this.items.find((item) => id === item.id)
 
@@ -39,8 +39,8 @@ export class InMemmorySnacksRepository implements SnackRepository {
 
     snack.date = date
     snack.description = description
-    snack.hours = hours
-    snack.isDiet = isDiet
+    snack.hour = hour
+    snack.is_diet = is_diet
     snack.title = title
 
     return snack
@@ -62,9 +62,9 @@ export class InMemmorySnacksRepository implements SnackRepository {
       title: data.title,
       description: data.description,
       date: data.date,
-      hours: data.hours,
-      isDiet: data.isDiet,
-      userId: data.userId,
+      hours: data.hour,
+      isDiet: data.is_diet,
+      userId: data.user_id,
     }
 
     this.items.push(snack)
