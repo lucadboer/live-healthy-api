@@ -11,8 +11,8 @@ export async function create(req: FastifyRequest, reply: FastifyReply) {
 
   const createSnackBodySchema = z.object({
     title: z.string(),
-    description: z.string(),
-    date: z.date(),
+    description: z.string().nullable(),
+    date: z.string(),
     hour: z.string(),
     is_diet: z.boolean(),
   })
@@ -21,12 +21,16 @@ export async function create(req: FastifyRequest, reply: FastifyReply) {
 
   const { title, description, date, hour, is_diet } = createSnackBodySchema.parse(req.body)
 
+try {
   const service = makeCreateSnackService()
   await service.execute({
     id: randomUUID(), title, description: description, date, hour, is_diet, user_id,
   })
 
-  return reply.status(201).send({
-    message: 'User created successfully',
+  return reply.status(201).send()
+} catch (error) {
+  return reply.status(500).send({
+    message: error
   })
+}
 }

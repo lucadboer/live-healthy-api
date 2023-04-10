@@ -1,8 +1,9 @@
+
 export interface Snack {
   id: string
   title: string
   description: string | null
-  date: Date
+  date: string
   hour: string
   is_diet: boolean
   user_id: string

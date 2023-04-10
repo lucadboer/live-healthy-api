@@ -16,13 +16,15 @@ describe('delete snack Service', async () => {
       id: 'snack-01',
       title: 'Rice and Beans',
       description: '',
-      date: new Date(),
+      date: new Date().toISOString(),
       hour: '12:00',
       is_diet: true,
       user_id: 'user-01',
     })
 
-    await sut.execute('snack-01')
+    await sut.execute({
+      snackId: 'snack-01',
+    })
 
     expect(snacksRepository.items).toEqual([])
   })
