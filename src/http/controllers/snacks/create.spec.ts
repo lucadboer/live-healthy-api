@@ -16,7 +16,6 @@ describe('Create Snack', () => {
 
     await request(app.server)
       .post(`/snacks/${id}/create`)
-      
       .send({
         title: 'Test Snack',
         description: '',
