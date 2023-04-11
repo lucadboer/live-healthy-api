@@ -22,7 +22,7 @@ export class CreateUserService {
     email,
     password,
   }: CreateUserRequest): Promise<CreateUserResponse> {
-    const passwordHash = await hash(password, 6)
+    const passwordHash = await hash(password, 6) 
 
     const isExistUser = await this.usersRepository.findByEmail(email)
 

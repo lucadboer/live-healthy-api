@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, it } from 'vitest'
 import request from 'supertest'
 import { app } from '@/app'
 
-describe('Get user Metrics', () => {
+describe('Create User', () => {
   beforeAll(async () => {
     await app.ready()
   })
@@ -11,11 +11,15 @@ describe('Get user Metrics', () => {
     await app.close()
   })
 
-  it('should be able to get user metrics', async () => {
-    const id = 'd8a35bc7-38c4-49a3-9c7e-1037ca69889d'
+  it('should be able to create user', async () => {
 
     await request(app.server)
-      .get(`/snacks/${id}/metrics`)
-      .expect(200)
+      .post(`/users`)
+      .send({
+        name: 'User test',
+        email: 'test@example.com',
+        password: 'test12345',
+      })
+      .expect(201)
   })
 })

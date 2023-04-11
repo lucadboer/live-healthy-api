@@ -19,7 +19,7 @@ describe('Get snack Service', async () => {
       id: snackId,
       title: 'Rice and Mistake',
       description: '',
-      date: new Date(),
+      date: new Date().toISOString(),
       hour: '12:00',
       is_diet: true,
       user_id: 'user-01',

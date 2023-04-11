@@ -3,9 +3,15 @@ import { UsersRepository } from '../users-repository'
 import { prisma } from '@/libs/prisma'
 
 export class PrismaUsersRepository implements UsersRepository {
-  async create(data: User): Promise<User> {
+  
+  async create({id, name, email, password_hash}: User): Promise<User> {
     const user = await prisma.user.create({
-      data,
+      data: {
+        id,
+        name,
+        email,
+        password_hash
+      }
     })
 
     return user
@@ -21,7 +27,7 @@ export class PrismaUsersRepository implements UsersRepository {
     return user
   }
   async findByEmail(email: string): Promise<User | null> {
-    const user = await prisma.user.findUniqueOrThrow({
+    const user = await prisma.user.findFirst({
       where: {
         email,
       }

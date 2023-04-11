@@ -20,7 +20,7 @@ describe('Fetch snacks Service', async () => {
         id: `snack-${i}`,
         title: 'Rice and Beans',
         description: '',
-        date: new Date(),
+        date: new Date().toISOString(),
         hour: '12:00',
         is_diet: true,
         user_id: userId,

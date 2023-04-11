@@ -20,7 +20,7 @@ describe('Get metrics Service', async () => {
         id: `snack-${i}`,
         title: 'Rice and Beans',
         description: '',
-        date: new Date(),
+        date: new Date().toISOString(),
         hour: '12:00',
         is_diet: i % 2 === 0 ? true : false,
         user_id: userId,

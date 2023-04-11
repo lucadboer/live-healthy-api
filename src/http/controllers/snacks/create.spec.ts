@@ -12,7 +12,7 @@ describe('Create Snack', () => {
   })
 
   it('should be able to create snack', async () => {
-    const id = '4ba7b49e-78fa-4070-a846-5eec395d8686'
+    const id = 'd8a35bc7-38c4-49a3-9c7e-1037ca69889d'
 
     await request(app.server)
       .post(`/snacks/${id}/create`)

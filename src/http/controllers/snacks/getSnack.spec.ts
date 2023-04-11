@@ -22,7 +22,7 @@ describe('Get Snack', () => {
         date: new Date(),
         hour: '12:00',
         is_diet: true,
-        user_id: '4ba7b49e-78fa-4070-a846-5eec395d8686'
+        user_id: 'd8a35bc7-38c4-49a3-9c7e-1037ca69889d'
       }
     })
 
