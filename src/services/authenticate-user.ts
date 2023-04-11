@@ -1,8 +1,6 @@
 import { User } from '@/DTO/User'
 import { UsersRepository } from '@/repositories/users-repository'
-import { compare, hash } from 'bcryptjs'
-import { UserAlreadyExistError } from './errors/user-already-exist-error'
-import { randomUUID } from 'crypto'
+import { compare } from 'bcryptjs'
 import { InvalidCredentialsError } from './errors/invalid-credentials-error'
 
 interface AuthenticateUserRequest {

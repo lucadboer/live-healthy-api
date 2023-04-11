@@ -1,5 +1,5 @@
-import { UserAlreadyExistError } from '@/services/errors/user-already-exist-error'
-import { makeCreateUserService } from '@/services/factories/make-create-user'
+import { InvalidCredentialsError } from '@/services/errors/invalid-credentials-error'
+import { makeAuthenticateUserService } from '@/services/factories/make-authenticate-user'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
@@ -12,11 +12,21 @@ export async function authenticate(req: FastifyRequest, reply: FastifyReply) {
   const { email, password } = createUserBodySchema.parse(req.body)
 
   try {
-    const service = makeCreateUserService()
+    const service = makeAuthenticateUserService()
     
-    
+    const { user } = await service.execute({ email, password })
+
+    const token = await reply.jwtSign({}, {
+      sign: {
+        sub: user.id
+      }
+    })
+
+    return reply.status(200).send({
+      token
+    })
   } catch (error) {
-    if (error instanceof UserAlreadyExistError) {
+    if (error instanceof InvalidCredentialsError) {
       return reply.status(409).send({ message: error.message })
     }
 
@@ -24,7 +34,4 @@ export async function authenticate(req: FastifyRequest, reply: FastifyReply) {
       message: error
     })
   }
-  return reply.status(201).send({
-    message: 'User created successfully',
-  })
 }
