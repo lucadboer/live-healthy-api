@@ -1,6 +1,4 @@
-import { makeCreateSnackService } from '@/services/factories/make-create-snack'
 import { makeGetSnackService } from '@/services/factories/make-get-snack'
-import { randomUUID } from 'crypto'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 

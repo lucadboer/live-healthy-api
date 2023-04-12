@@ -5,10 +5,6 @@ import { z } from 'zod'
 
 export async function create(req: FastifyRequest, reply: FastifyReply) {
 
-  const createSnackParamsSchema = z.object({
-    user_id: z.string().uuid(),
-  })
-
   const createSnackBodySchema = z.object({
     title: z.string(),
     description: z.string().nullable(),
@@ -17,20 +13,27 @@ export async function create(req: FastifyRequest, reply: FastifyReply) {
     is_diet: z.boolean(),
   })
 
-  const { user_id } = createSnackParamsSchema.parse(req.params)
-
   const { title, description, date, hour, is_diet } = createSnackBodySchema.parse(req.body)
 
-try {
-  const service = makeCreateSnackService()
-  await service.execute({
-    id: randomUUID(), title, description: description, date, hour, is_diet, user_id,
-  })
+  try {
+    const service = makeCreateSnackService()
+    const { snack } = await service.execute({
+      id: randomUUID(), 
+      title, 
+      description, 
+      date, 
+      hour, 
+      is_diet, 
+      user_id: req.user.sub,
+    })
 
-  return reply.status(201).send()
-} catch (error) {
-  return reply.status(500).send({
-    message: error
-  })
-}
+    return reply.status(201).send({
+      snack: snack
+    })
+
+  } catch (error) {
+    return reply.status(500).send({
+      message: error
+    })
+  }
 }

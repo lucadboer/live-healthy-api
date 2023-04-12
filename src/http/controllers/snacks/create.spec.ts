@@ -1,8 +1,7 @@
-import { afterAll, beforeAll, describe, it } from 'vitest'
+import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import request from 'supertest'
 import { app } from '@/app'
-import { prisma } from '@/libs/prisma'
-import { hash } from 'bcryptjs'
+import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate-user'
 
 describe('Create Snack', () => {
   beforeAll(async () => {
@@ -14,16 +13,11 @@ describe('Create Snack', () => {
   })
 
   it('should be able to create snack', async () => {
-    const {id} = await prisma.user.create({
-      data: {
-        name: 'John Doe',
-        email: 'john@doe.com',
-        password_hash: await hash('teste123', 6)
-      }
-    })
+    const { token } = await createAndAuthenticateUser(app)
 
-    await request(app.server)
-      .post(`/snacks/${id}/create`)
+    const response = await request(app.server)
+      .post(`/snack`)
+      .set('Authorization', `Bearer ${token}`)
       .send({
         title: 'Test Snack',
         description: '',
@@ -31,6 +25,11 @@ describe('Create Snack', () => {
         hour: '12:00',
         is_diet: true,
       })
-      .expect(201)
+
+    expect(response.statusCode).toEqual(201)
+    expect(response.body.snack).toEqual(expect.objectContaining({
+      title: 'Test Snack',
+      is_diet: true,
+    }))
   })
 })
