@@ -3,6 +3,7 @@ import request from 'supertest'
 import { app } from '@/app'
 import { prisma } from '@/libs/prisma'
 import { randomUUID } from 'crypto'
+import { hash } from 'bcryptjs'
 
 describe('Get Snack', () => {
   beforeAll(async () => {
@@ -14,6 +15,14 @@ describe('Get Snack', () => {
   })
 
   it('should be able to get snack', async () => {
+    const user = await prisma.user.create({
+      data: {
+        name: 'John Doe',
+        email: 'john@doe.com',
+        password_hash: await hash('teste123', 6)
+      }
+    })
+
     const {id} = await prisma.snack.create({
       data: {
         id: randomUUID(),
@@ -22,7 +31,7 @@ describe('Get Snack', () => {
         date: new Date(),
         hour: '12:00',
         is_diet: true,
-        user_id: 'd8a35bc7-38c4-49a3-9c7e-1037ca69889d'
+        user_id: user.id
       }
     })
 
