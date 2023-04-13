@@ -28,4 +28,4 @@ Daily Diet style app.
 ## RNFs (Requisitos não-funcionais)
 
 - [x] A senha do usuário precisa estar criptografada;
-- [ ] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL;
+- [x] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL;
